@@ -1,12 +1,15 @@
-package com.mrcruz.personapi.entity;
+package com.mrcruz.personapi.dto;
 
+import com.mrcruz.personapi.entity.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,26 +17,22 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Person {
+public class PersonDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(nullable = false)
+    @NotBlank
     private String firstName;
 
-
-    @Column(nullable = false)
+    @NotBlank
     private String lastName;
 
-
-    @Column(nullable = false, unique = true)
+    @NotBlank
     private String cpf;
+
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Phone> phones;
+    @Valid
+    @NotNull
+    private List<PhoneDTO> phones;
 }

@@ -1,4 +1,4 @@
-package com.mrcruz.personapi.entity;
+package com.mrcruz.personapi.dto;
 
 import com.mrcruz.personapi.enums.PhoneType;
 import lombok.AllArgsConstructor;
@@ -14,17 +14,14 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Phone {
+public class PhoneDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private PhoneType type;
 
-    @Column(nullable = false)
+    @NotBlank
     private String number;
 }
