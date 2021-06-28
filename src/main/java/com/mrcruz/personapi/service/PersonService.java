@@ -1,9 +1,11 @@
 package com.mrcruz.personapi.service;
 
 import com.mrcruz.personapi.dto.PersonDTO;
+import com.mrcruz.personapi.entity.Person;
 import com.mrcruz.personapi.mapper.PersonMapper;
 import com.mrcruz.personapi.repository.PersonRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +20,8 @@ public class PersonService {
     private final PersonMapper mapper = PersonMapper.INSTANCE;
 
     public PersonDTO save(PersonDTO dto){
-        return mapper.toDTO(personRepository.save(mapper.toModel(dto)));
+        Person person = personRepository.save(mapper.toModel(dto));
+        return mapper.toDTO(person);
     }
 
     public List<PersonDTO> findAll(){

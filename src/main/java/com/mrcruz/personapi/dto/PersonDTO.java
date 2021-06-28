@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -29,10 +27,10 @@ public class PersonDTO {
 
     @NotBlank
     private String cpf;
-
     private LocalDate birthDate;
 
-    @Valid
     @NotNull
-    private List<PhoneDTO> phones;
+    private List<Phone> phones;
+
+
 }

@@ -18,7 +18,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PersonDTO save(@Valid @RequestBody PersonDTO personDto){
+    public PersonDTO save(@RequestBody @Valid PersonDTO personDto){
         return personService.save(personDto);
     }
 
