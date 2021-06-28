@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,24 @@ public class PersonService {
     public List<PersonDTO> findAll(){
         return personRepository.findAll()
                 .stream()
-                .map((person) -> mapper.toDTO(person))
+                .map(mapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public PersonDTO findById(Long id) {
+        return mapper.toDTO(personRepository.findById(id)
+                .orElseThrow(() ->new EntityNotFoundException("Person not found with id: " + id)));
+    }
+
+    public void delete(Long id) {
+        findById(id);
+
+        personRepository.deleteById(id);
+    }
+
+    public PersonDTO update(Long id, PersonDTO personDTO) {
+        findById(id);
+        personDTO.setId(id);
+        return mapper.toDTO(personRepository.save(mapper.toModel(personDTO)));
     }
 }

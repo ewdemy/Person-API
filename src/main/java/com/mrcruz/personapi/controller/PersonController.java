@@ -26,4 +26,20 @@ public class PersonController {
     public List<PersonDTO> getAll(){
         return personService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable Long id){
+        return personService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public PersonDTO update(@PathVariable Long id, @Valid @RequestBody PersonDTO personDTO){
+        return personService.update(id, personDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        personService.delete(id);
+    }
 }
